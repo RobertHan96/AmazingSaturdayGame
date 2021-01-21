@@ -1,20 +1,28 @@
 PODS:
   - DropDown (2.3.13)
+  - SnapKit (5.0.1)
+  - Then (2.7.0)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - DropDown
+  - SnapKit (~> 5.0.0)
+  - Then
   - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
   trunk:
     - DropDown
+    - SnapKit
+    - Then
     - Toast-Swift
 
 SPEC CHECKSUMS:
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  Then: acfe0be7e98221c6204e12f8161459606d5d822d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 4524a32bdacddd82263afc1a6036568582886aa0
+PODFILE CHECKSUM: 78ae85118d7a77c0df3210b03fe6ff8f124e6247
 
 COCOAPODS: 1.10.0

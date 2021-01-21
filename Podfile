@@ -7,5 +7,7 @@ target 'RandomNumberGame' do
 
   # Pods for RandomNumberGame
 pod 'DropDown'
+pod 'Then'
 pod 'Toast-Swift', '~> 5.0.1'
+pod 'SnapKit', '~> 5.0.0'
 end
