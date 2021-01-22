@@ -11,16 +11,31 @@ class GameOverViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
 
     @IBAction func tryAgainBtnAction(_ sender: UIButton) {
-        
+        moveToGameVC()
     }
     
-    @IBAction func homeBtnAction(_ sender: UIButton) {
-        
+    @IBAction func moveToHome(_ sender: UIButton) {
+        moveToHomeVC()
     }
+    
+    private func moveToHomeVC() {
+        DispatchQueue.main.async {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+
+    private func moveToGameVC() {
+        let viewControllerID = Ids.ViewControllerID.gameVC.id
+        guard let gameVC = self.storyboard?.instantiateViewController(withIdentifier: viewControllerID) as? GameViewController
+            else { return }
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+
     
 }

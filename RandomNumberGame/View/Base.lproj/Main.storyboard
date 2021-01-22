@@ -18,8 +18,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ek4-83-n3U">
-                                <rect key="frame" x="163" y="733" width="88" height="54"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <rect key="frame" x="139" y="400" width="136" height="75"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="52"/>
                                 <state key="normal" title="NEXT">
                                     <color key="titleColor" systemColor="systemTealColor"/>
                                 </state>
@@ -28,14 +28,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="난이도 선택" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u47-ph-Se8">
-                                <rect key="frame" x="0.0" y="138" width="414" height="42"/>
+                                <rect key="frame" x="127.5" y="138" width="159" height="42"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                 <color key="textColor" systemColor="systemTealColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djm-2H-8TV">
-                                <rect key="frame" x="0.0" y="190" width="414" height="10"/>
-                                <color key="backgroundColor" systemColor="labelColor"/>
+                                <rect key="frame" x="127.5" y="190" width="159" height="10"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="Ar3-Ic-3Ag"/>
                                 </constraints>
@@ -44,14 +44,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="djm-2H-8TV" secondAttribute="trailing" id="BgW-a6-lWE"/>
+                            <constraint firstItem="Ek4-83-n3U" firstAttribute="top" secondItem="djm-2H-8TV" secondAttribute="bottom" constant="200" id="4uQ-jD-sL7"/>
                             <constraint firstItem="djm-2H-8TV" firstAttribute="top" secondItem="u47-ph-Se8" secondAttribute="bottom" constant="10" id="KUo-wE-Y4L"/>
                             <constraint firstItem="u47-ph-Se8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="MwQ-kD-26A"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="u47-ph-Se8" secondAttribute="trailing" id="QOp-1t-3ME"/>
-                            <constraint firstItem="u47-ph-Se8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WOQ-Yt-iGq"/>
-                            <constraint firstItem="Ek4-83-n3U" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.6" id="bcS-Sx-evy"/>
+                            <constraint firstItem="u47-ph-Se8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WDN-iS-Y1H"/>
                             <constraint firstItem="Ek4-83-n3U" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ha6-Dc-Aen"/>
-                            <constraint firstItem="djm-2H-8TV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="veu-cO-Vnl"/>
+                            <constraint firstItem="djm-2H-8TV" firstAttribute="leading" secondItem="u47-ph-Se8" secondAttribute="leading" id="he5-br-klk"/>
+                            <constraint firstItem="djm-2H-8TV" firstAttribute="trailing" secondItem="u47-ph-Se8" secondAttribute="trailing" id="mjA-jO-4M3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Prp-S1-j7j"/>
@@ -158,6 +157,17 @@
                                         <state key="normal" title="Try Again">
                                             <color key="titleColor" systemColor="systemTealColor"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="tryAgainBtnAction:" destination="RYr-kc-kGa" eventType="touchUpInside" id="ZgA-Aj-GP9"/>
                                         </connections>
@@ -169,8 +179,19 @@
                                         <state key="normal" title="HOME">
                                             <color key="titleColor" systemColor="systemTealColor"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="homeBtnAction:" destination="RYr-kc-kGa" eventType="touchUpInside" id="R0e-wT-Lbn"/>
+                                            <action selector="moveToHome:" destination="RYr-kc-kGa" eventType="touchUpInside" id="R0e-wT-Lbn"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -216,8 +237,19 @@
                                         <state key="normal" title="HOME">
                                             <color key="titleColor" systemColor="systemTealColor"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="homeBtnAction:" destination="drX-EG-vKE" eventType="touchUpInside" id="yGO-8H-Lz6"/>
+                                            <action selector="moveToHome:" destination="drX-EG-vKE" eventType="touchUpInside" id="8Fh-th-JSP"/>
                                         </connections>
                                     </button>
                                 </subviews>

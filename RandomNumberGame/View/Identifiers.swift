@@ -25,4 +25,16 @@ class Ids {
             }
         }
     }
+    
+    enum XibIds {
+        case dropdownMenuCell
+    
+    
+        var id: String {
+            switch self {
+            case .dropdownMenuCell: return "DropDownMenuTableViewCell"
+            }
+        }
+    }
+    
 }

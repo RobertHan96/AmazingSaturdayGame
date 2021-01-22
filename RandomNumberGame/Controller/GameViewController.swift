@@ -81,8 +81,7 @@ class GameViewController: UIViewController {
             self.view.makeToast("GAME START!", duration: 2, position: .center)
             self.hideCards()
             UIApplication.shared.endIgnoringInteractionEvents()
-//            self.startTimerAnim()
-//            self.setupTimer()
+            self.setupTimer()
         }
     }
     
@@ -117,9 +116,8 @@ class GameViewController: UIViewController {
 
     @objc func changeTimerText(){
         restTime -= 1
-        endInfromText.text = String(restTime)
+        restOfTimeLabel.text = String(restTime)
         if restTime == 0 {
-            print("LOG - 게임 끝")
             endGame()
         }
     }
@@ -134,17 +132,21 @@ class GameViewController: UIViewController {
     private func endGame() {
         let currentScore = Int(scroeText.text!)
         if currentScore == 2000 {
+            print("LOG - 게임 끝")
             moveToGameClear()
         } else {
+            print("LOG - 게임 끝")
             moveToGameOver()
         }
     }
     
     private func moveToGameOver() {
-        let id = Ids.ViewControllerID.gameOverVC.id
-        guard let gameClearVC = self.storyboard?.instantiateViewController(withIdentifier: id) as? GameClearViewController
-            else { return }
-        self.navigationController?.pushViewController(gameClearVC, animated: true)
+        DispatchQueue.main.async {
+            let id = Ids.ViewControllerID.gameOverVC.id
+            guard let gameOverVC = self.storyboard?.instantiateViewController(withIdentifier: id) as? GameOverViewController
+                else { return }
+            self.navigationController?.pushViewController(gameOverVC, animated: true)
+        }
     }
     
     private func moveToGameClear() {
@@ -154,12 +156,9 @@ class GameViewController: UIViewController {
         self.navigationController?.pushViewController(gameClearVC, animated: true)
     }
     
-    let timerImageView = UIImageView().then {
-        $0.image = UIImage(named: "timer")
-    }
-    
     let letterColectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
         let layout = UICollectionViewFlowLayout()
+        $0.isUserInteractionEnabled = true
         $0.register(UINib.init(nibName: "NumberCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "NumberCollectionViewCell")
         $0.backgroundColor = .none
         layout.minimumLineSpacing = 5
@@ -167,23 +166,27 @@ class GameViewController: UIViewController {
         layout.scrollDirection = .vertical
         $0.collectionViewLayout = layout
     }
-
-    let startInfromText = UILabel().then {
+    let timeInfromLabel = UILabel().then {
         $0.text = "TIME"
+        $0.font = UIFont.boldSystemFont(ofSize: 20)
+        $0.textColor = .blue
     }
-    let endInfromText = UILabel().then {
+    let restOfTimeLabel = UILabel().then {
         $0.text = "0"
+        $0.font = UIFont.boldSystemFont(ofSize: 35)
+        $0.textColor = .blue
     }
     let scoreInformText = UILabel().then {
         $0.text = "SCORE"
-//        $0.backgroundColor = .blue
-//        $0.layer.borderWidth = 1
-//        $0.layer.borderColor = UIColor.black.cgColor
-//        $0.layer.cornerRadius = 10
+        $0.font = UIFont.boldSystemFont(ofSize: 20)
+        $0.textColor = .blue
     }
-    
-    let scroeText = UILabel().then {
+    let scroeText = InsetLabel().then {
         $0.text = "0"
+        $0.font = UIFont.boldSystemFont(ofSize: 35)
+        $0.textColor = .black
+        $0.textAlignment = .center
+        $0.adjustsFontSizeToFitWidth = true
     }
 
 }
@@ -208,15 +211,17 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
     // 각 셀을 누를때마다 정답 여부를 체크하고 UI & 백 로직 수행
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! NumberCollectionViewCell
-        print("셀눌림")
         let labelNumber = numbers[indexPath.row]
         if labelNumber == prevNumber + 1 {
             print("LOG - 정답 : ",labelNumber)
-            cell.backgroundColor = .red
-            cell.numberLabel.isHidden = false
+            
+            DispatchQueue.main.async {
+                cell.backgroundColor = .red
+                cell.numberLabel.isHidden = false
+                self.scroeText.text = "\(self.prevNumber * 100)"
+            }
             cell.isOpen = true
             prevNumber += 1
-            self.scroeText.text = "\(prevNumber * 100)"
         }
     }
     

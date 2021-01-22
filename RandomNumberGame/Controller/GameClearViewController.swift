@@ -11,8 +11,17 @@ class GameClearViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
+    @IBAction func moveToHome(_ sender: UIButton) {
+        moveToHomeVC()
+    }
+    
+    private func moveToHomeVC() {
+        DispatchQueue.main.async {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+
 }
