@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  RandomNumberGame
-//
-//  Created by HanaHan on 2021/01/19.
-//
-
 import UIKit
 import Toast_Swift
 import DropDown
@@ -16,6 +9,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,13 +24,13 @@ class MainViewController: UIViewController {
     
     private func setLevelSelectionMenu() {
         let dropdown = DropDown()
-        dropdown.dataSource = [GameData.Level.level1.toString, GameData.Level.level2.toString, GameData.Level.level3.toString]
+        dropdown.dataSource = [GameData.Level.level1.text, GameData.Level.level2.text, GameData.Level.level3.text]
         dropdown.anchorView = dropdownAnchorView
         dropdown.selectedTextColor = .blue
         dropdown.show()
         
         dropdown.selectionAction = { [unowned self] (index: Int, item: String) in
-            defaults.set(item, forKey: "gameLevel")
+            defaults.set(item, forKey: GameData.Level.userDefaultKey.text)
             selectionTitleLabel.text = item
         }
     }
@@ -46,17 +40,17 @@ class MainViewController: UIViewController {
     }
     
     private func notifyGameStart() {
-        let gameLevel = defaults.string(forKey: "gameLevel") ?? nil
+        let gameLevel = defaults.string(forKey: GameData.Level.userDefaultKey.text) ?? nil
         
         if gameLevel == nil {
-            self.view.makeToast("먼저 게임 난이도를 선택해주세요", duration: 1, position: .center)
+            self.view.makeToast(GameData.Text.levelSelectIsNedded.text, duration: 1, position: .center)
             setLevelSelectionMenu()
         } else {
             UIApplication.shared.beginIgnoringInteractionEvents()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                self.view.makeToast("READY!", duration: 1, position: .center)
+                self.view.makeToast(GameData.Text.gameReady.text, duration: 1, position: .center)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.view.makeToast("START!", duration: 1, position: .center)
+                    self.view.makeToast(GameData.Text.gameStart.text, duration: 1, position: .center)
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     self.moveToGameVC()

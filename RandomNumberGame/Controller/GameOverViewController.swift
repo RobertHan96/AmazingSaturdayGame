@@ -1,11 +1,5 @@
-//
-//  GameOverViewController.swift
-//  RandomNumberGame
-//
-//  Created by HanaHan on 2021/01/19.
-//
-
 import UIKit
+import AVFoundation
 
 class GameOverViewController: UIViewController {
 
@@ -14,6 +8,11 @@ class GameOverViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        GameData().playGameOverSound()
+    }
+    
     @IBAction func tryAgainBtnAction(_ sender: UIButton) {
         moveToGameVC()
     }

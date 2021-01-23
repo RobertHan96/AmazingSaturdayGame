@@ -14,6 +14,11 @@ class GameClearViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        GameData().playGameClearSound()
+    }
+    
     @IBAction func moveToHome(_ sender: UIButton) {
         moveToHomeVC()
     }

@@ -1,12 +1,6 @@
-//
-//  GameViewController.swift
-//  RandomNumberGame
-//
-//  Created by HanaHan on 2021/01/19.
-//
-
 import UIKit
 import Toast_Swift
+import AVFoundation
 
 class GameViewController: UIViewController {
     let defaults = UserDefaults.standard
@@ -14,11 +8,21 @@ class GameViewController: UIViewController {
     var hintTime : Double =  GameData.Level.level1.hintTime
     var gameTimer : Timer?
     var hintTimer: Timer?
-    var restTime : Int = 60
+    var restTime : Int = 60 {
+        didSet {
+            if self.restTime == 30 {
+                timeNotiAnimation()
+            }
+            if self.restTime == 10 {
+                timeNotiAnimation()
+            }
+        }
+    }
     var numbers : [Int] = []
     var prevNumber = 0  {
         didSet {
             if self.prevNumber == 20 {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
                 moveToGameClear()
             }
         }
@@ -27,26 +31,18 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getUserLevelInfo()
-        makeRandomNumbers()
         setupUI()
         setupColectionView()
         makeAutoLayout()
     }
-    
-    private func makeRandomNumbers() {
-        for i in 1...20 {
-            numbers.append(i)
-        }
-        numbers.shuffle()
-    }
-    
+        
     private func setupColectionView() {
         letterColectionView.dataSource = self
         letterColectionView.delegate = self
     }
     
     private func getUserLevelInfo() {
-        let gameLevel = defaults.string(forKey: "gameLevel") ?? GameData.Level.level1.toString
+        let gameLevel = defaults.string(forKey: "gameLevel") ?? GameData.Level.level1.text
         switch gameLevel {
         case "상":
             previewTime = GameData.Level.level3.preViewTime
@@ -64,41 +60,44 @@ class GameViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        startGame()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // 게임시작 안내 & 힌트판 제공 시간동안 중복 터치를 막기 위해 화면 터치 잠금
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        startGame()
+//        startGame()
     }
-
     
 
-    func startGame() {
+    private func startGame() {
+        // 게임시작 안내 & 힌트판 제공 시간동안 중복 터치를 막기 위해 화면 터치 잠금
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        makeRandomNumbers()
+        restTime = 60
+        DispatchQueue.main.async {
+//            self.initCards()
+            self.scroeText.text = GameData.Text.defaultScoreZero.text
+        }
         // 지정한 힌트 시간 이후에 숫자판이 닫히면서 게임 시작, 게임 시작 안내 토스트
         DispatchQueue.main.asyncAfter(deadline: .now() + previewTime ) {
-            self.view.makeToast("GAME START!", duration: 2, position: .center)
-            self.hideCards()
+            self.view.makeToast(GameData.Text.gameStart.text, duration: 2, position: .center)
             UIApplication.shared.endIgnoringInteractionEvents()
+            self.hideCards()
             self.setupTimer()
         }
     }
     
-    private func showCards() {
-        self.letterColectionView.visibleCells.forEach { (eachCell) in
-            let cell = eachCell as! NumberCollectionViewCell
-            cell.numberLabel.isHidden = false
+    private func makeRandomNumbers() {
+        for i in 1...20 {
+            numbers.append(i)
         }
+        numbers.shuffle()
     }
-    
-    private func hideCards() {
-        self.letterColectionView.visibleCells.forEach { (eachCell) in
-            let cell = eachCell as! NumberCollectionViewCell
-            if cell.isOpen == false {
-                cell.numberLabel.isHidden = true
-            }
-        }
+
+    private func restartGame() {
+        // 초기화 : 타이머 표시 시간, 획득했던 점수, 카드 뒤집기, 카드내 숫자 표시, 카드 다시 섞기, 타이머 재설정
+        initCards()
+        startGame()
     }
 
     // 게임진행 시간 타이머와 힌트 제공 타이머 두개 설정
@@ -123,39 +122,24 @@ class GameViewController: UIViewController {
     }
 
     @objc func showHint() {
-        showCards()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        showCards()        
+        DispatchQueue.main.asyncAfter(deadline: .now() + hintTime) {
             self.hideCards()
         }
     }
     
     private func endGame() {
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
         let currentScore = Int(scroeText.text!)
         if currentScore == 2000 {
-            print("LOG - 게임 끝")
+            print("LOG - 게임 끝(GAME CLEAR)")
             moveToGameClear()
         } else {
-            print("LOG - 게임 끝")
+            print("LOG - 게임 끝(GAME OVER)")
             moveToGameOver()
         }
     }
-    
-    private func moveToGameOver() {
-        DispatchQueue.main.async {
-            let id = Ids.ViewControllerID.gameOverVC.id
-            guard let gameOverVC = self.storyboard?.instantiateViewController(withIdentifier: id) as? GameOverViewController
-                else { return }
-            self.navigationController?.pushViewController(gameOverVC, animated: true)
-        }
-    }
-    
-    private func moveToGameClear() {
-        let id = Ids.ViewControllerID.gameClearVC.id
-        guard let gameClearVC = self.storyboard?.instantiateViewController(withIdentifier: id) as? GameClearViewController
-            else { return }
-        self.navigationController?.pushViewController(gameClearVC, animated: true)
-    }
-    
+        
     let letterColectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
         let layout = UICollectionViewFlowLayout()
         $0.isUserInteractionEnabled = true
@@ -167,28 +151,26 @@ class GameViewController: UIViewController {
         $0.collectionViewLayout = layout
     }
     let timeInfromLabel = UILabel().then {
-        $0.text = "TIME"
+        $0.text = GameData.Text.timeLabel.text
         $0.font = UIFont.boldSystemFont(ofSize: 20)
         $0.textColor = .blue
     }
     let restOfTimeLabel = UILabel().then {
-        $0.text = "0"
+        $0.text = GameData.Text.defaultScoreZero.text
         $0.font = UIFont.boldSystemFont(ofSize: 35)
         $0.textColor = .blue
     }
     let scoreInformText = UILabel().then {
-        $0.text = "SCORE"
+        $0.text = GameData.Text.scoreLabel.text
         $0.font = UIFont.boldSystemFont(ofSize: 20)
         $0.textColor = .blue
     }
     let scroeText = InsetLabel().then {
-        $0.text = "0"
+        $0.text = GameData.Text.defaultScoreZero.text
         $0.font = UIFont.boldSystemFont(ofSize: 35)
         $0.textColor = .black
         $0.textAlignment = .center
-        $0.adjustsFontSizeToFitWidth = true
     }
-
 }
 
 extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -214,7 +196,7 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         let labelNumber = numbers[indexPath.row]
         if labelNumber == prevNumber + 1 {
             print("LOG - 정답 : ",labelNumber)
-            
+            GameData().playGameClearSound()
             DispatchQueue.main.async {
                 cell.backgroundColor = .red
                 cell.numberLabel.isHidden = false

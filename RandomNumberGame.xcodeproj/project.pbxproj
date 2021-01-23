@@ -23,8 +23,6 @@
 		00B381B325B90E9700BFC3AC /* NumberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B381B125B90E9700BFC3AC /* NumberCollectionViewCell.swift */; };
 		00B381B425B90E9700BFC3AC /* NumberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00B381B225B90E9700BFC3AC /* NumberCollectionViewCell.xib */; };
 		00B381BD25BAAC9A00BFC3AC /* Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B381BC25BAAC9A00BFC3AC /* Extenstions.swift */; };
-		00B381C125BAB49100BFC3AC /* DropDownMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B381BF25BAB49100BFC3AC /* DropDownMenuTableViewCell.swift */; };
-		00B381C225BAB49100BFC3AC /* DropDownMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00B381C025BAB49100BFC3AC /* DropDownMenuTableViewCell.xib */; };
 		03AC70DED25702EA8A0AF3FF /* Pods_RandomNumberGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 984EF0B805240D3280ABC696 /* Pods_RandomNumberGame.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,8 +45,6 @@
 		00B381B125B90E9700BFC3AC /* NumberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberCollectionViewCell.swift; sourceTree = "<group>"; };
 		00B381B225B90E9700BFC3AC /* NumberCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumberCollectionViewCell.xib; sourceTree = "<group>"; };
 		00B381BC25BAAC9A00BFC3AC /* Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extenstions.swift; sourceTree = "<group>"; };
-		00B381BF25BAB49100BFC3AC /* DropDownMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenuTableViewCell.swift; sourceTree = "<group>"; };
-		00B381C025BAB49100BFC3AC /* DropDownMenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DropDownMenuTableViewCell.xib; sourceTree = "<group>"; };
 		044AE14AD0DA0DFCAC631A0E /* Pods-RandomNumberGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomNumberGame.debug.xcconfig"; path = "Target Support Files/Pods-RandomNumberGame/Pods-RandomNumberGame.debug.xcconfig"; sourceTree = "<group>"; };
 		6B705F61DD7DF5ED6DC576A0 /* Pods-RandomNumberGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomNumberGame.release.xcconfig"; path = "Target Support Files/Pods-RandomNumberGame/Pods-RandomNumberGame.release.xcconfig"; sourceTree = "<group>"; };
 		984EF0B805240D3280ABC696 /* Pods_RandomNumberGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RandomNumberGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,8 +104,6 @@
 				00B381AE25B7234200BFC3AC /* Identifiers.swift */,
 				00B381B125B90E9700BFC3AC /* NumberCollectionViewCell.swift */,
 				00B381B225B90E9700BFC3AC /* NumberCollectionViewCell.xib */,
-				00B381BF25BAB49100BFC3AC /* DropDownMenuTableViewCell.swift */,
-				00B381C025BAB49100BFC3AC /* DropDownMenuTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -213,7 +207,6 @@
 				00B3816225B6D82200BFC3AC /* LaunchScreen.storyboard in Resources */,
 				00B3818725B6EC2600BFC3AC /* Localizable.strings in Resources */,
 				00B3815F25B6D82200BFC3AC /* Assets.xcassets in Resources */,
-				00B381C225BAB49100BFC3AC /* DropDownMenuTableViewCell.xib in Resources */,
 				00B3815D25B6D82100BFC3AC /* Main.storyboard in Resources */,
 				00B381B425B90E9700BFC3AC /* NumberCollectionViewCell.xib in Resources */,
 			);
@@ -271,7 +264,6 @@
 				00B381AC25B71D1E00BFC3AC /* GameClearViewController.swift in Sources */,
 				00B3815A25B6D82100BFC3AC /* MainViewController.swift in Sources */,
 				00B3817325B6EBA300BFC3AC /* GameData.swift in Sources */,
-				00B381C125BAB49100BFC3AC /* DropDownMenuTableViewCell.swift in Sources */,
 				00B3819A25B6F03E00BFC3AC /* GameOverViewController.swift in Sources */,
 				00B381AF25B7234200BFC3AC /* Identifiers.swift in Sources */,
 				00B381B325B90E9700BFC3AC /* NumberCollectionViewCell.swift in Sources */,
