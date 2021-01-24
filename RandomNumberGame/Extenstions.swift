@@ -45,3 +45,7 @@ class InsetLabel: UILabel {
         }
     }
 }
+
+extension Notification.Name {
+    static let hintTime = Notification.Name("hintTime")
+}

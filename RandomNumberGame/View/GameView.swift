@@ -65,7 +65,7 @@ extension GameViewController {
     func initCards() {
         self.letterColectionView.visibleCells.forEach { (eachCell) in
             let cell = eachCell as! NumberCollectionViewCell
-            cell.numberLabel.isHidden = true
+            cell.numberLabel.isHidden = false
             cell.isOpen = false
             cell.backgroundColor = .brown
         }

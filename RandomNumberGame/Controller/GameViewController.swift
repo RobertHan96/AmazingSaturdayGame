@@ -4,10 +4,11 @@ import AVFoundation
 
 class GameViewController: UIViewController {
     let defaults = UserDefaults.standard
+    let notificationCenter = NotificationCenter.default
     var previewTime : Double =  GameData.Level.level1.preViewTime
     var hintTime : Double =  GameData.Level.level1.hintTime
     var gameTimer : Timer?
-    var hintTimer: Timer?
+    var tempRestTime : Int?
     var restTime : Int = 60 {
         didSet {
             if self.restTime == 30 {
@@ -32,10 +33,43 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         getUserLevelInfo()
         setupUI()
+//        setupObserver()
         setupColectionView()
         makeAutoLayout()
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+
+        notificationCenter.addObserver(self, selector: #selector(appCameToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startGame()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        notificationCenter.removeObserver(self)
     }
         
+    private func setupObserver() {
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+
+        notificationCenter.addObserver(self, selector: #selector(appCameToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    @objc func appMovedToBackground() {
+        print("LOG - 백그라운드 이동 남은시간 : \(restTime)초")
+        tempRestTime = restTime
+   }
+
+    @objc func appCameToForeground() {
+        if let time = tempRestTime {
+            print("LOG - 포그라운드 복귀 남은시간 : \(restTime)초")
+            restTime = time
+        }
+   }
+    
     private func setupColectionView() {
         letterColectionView.dataSource = self
         letterColectionView.delegate = self
@@ -57,17 +91,6 @@ class GameViewController: UIViewController {
             print("LOG - 게임난이도 정보 불러오기 실패, 기본 난이도로 진행...")
         }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        startGame()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        startGame()
-    }
-    
 
     private func startGame() {
         // 게임시작 안내 & 힌트판 제공 시간동안 중복 터치를 막기 위해 화면 터치 잠금
@@ -75,12 +98,11 @@ class GameViewController: UIViewController {
         makeRandomNumbers()
         restTime = 60
         DispatchQueue.main.async {
-//            self.initCards()
             self.scroeText.text = GameData.Text.defaultScoreZero.text
         }
         // 지정한 힌트 시간 이후에 숫자판이 닫히면서 게임 시작, 게임 시작 안내 토스트
         DispatchQueue.main.asyncAfter(deadline: .now() + previewTime ) {
-            self.view.makeToast(GameData.Text.gameStart.text, duration: 2, position: .center)
+            self.view.makeToast(GameData.Text.gameStart.text, duration: 1, position: .center)
             UIApplication.shared.endIgnoringInteractionEvents()
             self.hideCards()
             self.setupTimer()
@@ -94,22 +116,14 @@ class GameViewController: UIViewController {
         numbers.shuffle()
     }
 
-    private func restartGame() {
-        // 초기화 : 타이머 표시 시간, 획득했던 점수, 카드 뒤집기, 카드내 숫자 표시, 카드 다시 섞기, 타이머 재설정
-        initCards()
-        startGame()
-    }
-
     // 게임진행 시간 타이머와 힌트 제공 타이머 두개 설정
     private func setupTimer() {
         if let timer = gameTimer {
             if !timer.isValid {
                 gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(changeTimerText), userInfo: nil, repeats: true)
-                hintTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(showHint), userInfo: nil, repeats: true)
         }
         }else{
             gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(changeTimerText), userInfo: nil, repeats: true)
-            hintTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(showHint), userInfo: nil, repeats: true)
         }
     }
 
@@ -118,6 +132,9 @@ class GameViewController: UIViewController {
         restOfTimeLabel.text = String(restTime)
         if restTime == 0 {
             endGame()
+        } else if restTime % 10 == 0 && restTime > 0 {
+            print("LOG - \(60 - restTime)초 경과, 힌트 제공")
+            showHint()
         }
     }
 

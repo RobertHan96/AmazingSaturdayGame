@@ -34,7 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djm-2H-8TV">
-                                <rect key="frame" x="64" y="146" width="286" height="10"/>
+                                <rect key="frame" x="0.0" y="146" width="414" height="10"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="Ar3-Ic-3Ag"/>
@@ -44,13 +44,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="djm-2H-8TV" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0z2-gI-ggn"/>
                             <constraint firstItem="Ek4-83-n3U" firstAttribute="top" secondItem="djm-2H-8TV" secondAttribute="bottom" constant="200" id="4uQ-jD-sL7"/>
+                            <constraint firstItem="djm-2H-8TV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IK4-PO-2lj"/>
                             <constraint firstItem="djm-2H-8TV" firstAttribute="top" secondItem="u47-ph-Se8" secondAttribute="bottom" constant="10" id="KUo-wE-Y4L"/>
                             <constraint firstItem="u47-ph-Se8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="MwQ-kD-26A"/>
                             <constraint firstItem="u47-ph-Se8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WDN-iS-Y1H"/>
                             <constraint firstItem="Ek4-83-n3U" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ha6-Dc-Aen"/>
-                            <constraint firstItem="djm-2H-8TV" firstAttribute="width" secondItem="u47-ph-Se8" secondAttribute="width" multiplier="1.8" id="tIb-Wh-FxR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="djm-2H-8TV" secondAttribute="trailing" id="sHu-Rc-gMH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Prp-S1-j7j"/>
@@ -148,7 +148,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PL3-hd-3uA">
-                                <rect key="frame" x="20" y="695" width="374" height="147"/>
+                                <rect key="frame" x="20" y="771" width="374" height="71"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHy-zE-TjT">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="71"/>
@@ -170,28 +170,6 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="tryAgainBtnAction:" destination="RYr-kc-kGa" eventType="touchUpInside" id="ZgA-Aj-GP9"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tu2-gm-F5u">
-                                        <rect key="frame" x="0.0" y="76" width="374" height="71"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="42"/>
-                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                        <state key="normal" title="HOME">
-                                            <color key="titleColor" systemColor="systemTealColor"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="moveToHome:" destination="RYr-kc-kGa" eventType="touchUpInside" id="R0e-wT-Lbn"/>
                                         </connections>
                                     </button>
                                 </subviews>

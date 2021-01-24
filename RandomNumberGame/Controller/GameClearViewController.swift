@@ -17,6 +17,8 @@ class GameClearViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         GameData().playGameClearSound()
+        let defaults = UserDefaults.standard
+        defaults.setValue(60, forKey: "restTime")
     }
     
     @IBAction func moveToHome(_ sender: UIButton) {

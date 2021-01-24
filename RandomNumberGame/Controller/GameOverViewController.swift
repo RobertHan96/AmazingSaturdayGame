@@ -11,13 +11,11 @@ class GameOverViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         GameData().playGameOverSound()
+        let defaults = UserDefaults.standard
+        defaults.setValue(60, forKey: "restTime")
     }
     
     @IBAction func tryAgainBtnAction(_ sender: UIButton) {
-        moveToGameVC()
-    }
-    
-    @IBAction func moveToHome(_ sender: UIButton) {
         moveToHomeVC()
     }
     
@@ -26,15 +24,5 @@ class GameOverViewController: UIViewController {
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
-
-    private func moveToGameVC() {
-        let viewControllerID = Ids.ViewControllerID.gameVC.id
-        guard let gameVC = self.storyboard?.instantiateViewController(withIdentifier: viewControllerID) as? GameViewController
-            else { return }
-        DispatchQueue.main.async {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
-
     
 }
